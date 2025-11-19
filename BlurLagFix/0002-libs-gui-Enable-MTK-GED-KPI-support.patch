@@ -1,0 +1,37 @@
+From 17bb1404d850d43c266776901189cda7f54e7e97 Mon Sep 17 00:00:00 2001
+From: claxten10 <claxten10@gmail.com>
+Date: Sat, 11 Oct 2025 21:56:52 +0000
+Subject: [PATCH] libs: gui: Enable MTK GED KPI support
+
+Change-Id: Icec289b7382c8ee539f2854716e1842593b17f9d
+Signed-off-by: claxten10 <claxten10@gmail.com>
+---
+ libs/gui/Surface.cpp | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/libs/gui/Surface.cpp b/libs/gui/Surface.cpp
+index d686346..26eb903 100644
+--- a/libs/gui/Surface.cpp
++++ b/libs/gui/Surface.cpp
+@@ -111,7 +111,7 @@ struct GED_BRIDGE_OUT_GPU_TIMESTAMP {
+     int is_ged_kpi_enabled;
+ };
+ 
+-static int doMtkGedKpi = -1;
++static int doMtkGedKpi = 1;
+ static int ged_fd = -1;
+ 
+ #if COM_ANDROID_GRAPHICS_LIBGUI_FLAGS(WB_PLATFORM_API_IMPROVEMENTS)
+@@ -185,10 +185,6 @@ Surface::Surface(const sp<IGraphicBufferProducer>& bufferProducer, bool controll
+     mMaxBufferCount = NUM_BUFFER_SLOTS;
+     mSurfaceControlHandle = surfaceControlHandle;
+ 
+-    if (doMtkGedKpi == -1) {
+-        doMtkGedKpi = android::base::GetIntProperty("persist.sys.phh.mtk_ged_kpi", 0);
+-    }
+-
+     if (ged_fd == -1 && doMtkGedKpi == 1) {
+         ALOGE("Opening ged");
+         ged_fd = open("/proc/ged", O_RDONLY);
+-- 
+2.43.0
