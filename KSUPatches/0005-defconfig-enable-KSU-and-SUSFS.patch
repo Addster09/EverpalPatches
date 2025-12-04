@@ -1,0 +1,47 @@
+From 789a5afe8b297f1e7d4e46117a353a45bb975efc Mon Sep 17 00:00:00 2001
+From: weaponmasterjax <42597871+weaponmasterjax@users.noreply.github.com>
+Date: Thu, 4 Dec 2025 14:44:26 +0530
+Subject: [PATCH 5/6] defconfig: enable KSU and SUSFS
+
+Signed-off-by: weaponmasterjax <42597871+weaponmasterjax@users.noreply.github.com>
+Signed-off-by: Addster09 <aadityasingh.cs9@gmail.com>
+---
+ arch/arm64/configs/everpal_defconfig | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/arch/arm64/configs/everpal_defconfig b/arch/arm64/configs/everpal_defconfig
+index c58d2abbf921..404b52d16576 100644
+--- a/arch/arm64/configs/everpal_defconfig
++++ b/arch/arm64/configs/everpal_defconfig
+@@ -465,3 +465,28 @@ CONFIG_TCP_CONG_CUBIC=y
+ CONFIG_TCP_CONG_WESTWOOD=y
+ CONFIG_TCP_CONG_BBR=y
+ CONFIG_DEFAULT_BBR=y
++
++## KSU
++CONFIG_KSU=y
++CONFIG_KSU_KPROBES_HOOK=n
++CONFIG_TMPFS_XATTR=y
++CONFIG_TMPFS_POSIX_ACL=y
++CONFIG_IP_NF_TARGET_TTL=y
++CONFIG_IP6_NF_TARGET_HL=y
++CONFIG_IP6_NF_MATCH_HL=y
++CONFIG_KSU_SUSFS_OPEN_REDIRECT=y
++CONFIG_KSU_SUSFS=y
++CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y
++CONFIG_KSU_SUSFS_SUS_PATH=y
++CONFIG_KSU_SUSFS_SUS_MOUNT=y
++CONFIG_KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT=y
++CONFIG_KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT=y
++CONFIG_KSU_SUSFS_SUS_KSTAT=y
++CONFIG_KSU_SUSFS_SUS_OVERLAYFS=n
++CONFIG_KSU_SUSFS_TRY_UMOUNT=y
++CONFIG_KSU_SUSFS_AUTO_ADD_TRY_UMOUNT_FOR_BIND_MOUNT=y
++CONFIG_KSU_SUSFS_SPOOF_UNAME=y
++CONFIG_KSU_SUSFS_ENABLE_LOG=y
++CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y
++CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y
++CONFIG_KSU_SUSFS_OPEN_REDIRECT=y
+-- 
+2.52.0
+

@@ -1,0 +1,46 @@
+From 2ecfbacac36b1a7f9ff2bb0e1c303d17d28dc226 Mon Sep 17 00:00:00 2001
+From: weaponmasterjax <42597871+weaponmasterjax@users.noreply.github.com>
+Date: Wed, 3 Dec 2025 21:41:04 +0800
+Subject: [PATCH 6/6] drivers: build kernelsu next
+
+You still need to run KSUN setup script
+Signed-off-by: weaponmasterjax <42597871+weaponmasterjax@users.noreply.github.com>
+Signed-off-by: Addster09 <aadityasingh.cs9@gmail.com>
+---
+ drivers/Kconfig  | 1 +
+ drivers/Makefile | 2 ++
+ drivers/kernelsu | 1 +
+ 3 files changed, 4 insertions(+)
+ create mode 120000 drivers/kernelsu
+
+diff --git a/drivers/Kconfig b/drivers/Kconfig
+index 84a59c542405..a89157e41b0b 100644
+--- a/drivers/Kconfig
++++ b/drivers/Kconfig
+@@ -215,4 +215,5 @@ source "drivers/tee/Kconfig"
+ 
+ source "drivers/mux/Kconfig"
+ 
++source "drivers/kernelsu/Kconfig"
+ endmenu
+diff --git a/drivers/Makefile b/drivers/Makefile
+index ba09405ee7fc..a6391d5842c6 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -186,3 +186,5 @@ obj-$(CONFIG_TEE)		+= tee/
+ obj-$(CONFIG_MULTIPLEXER)	+= mux/
+ obj-$(CONFIG_TRUSTY)	+= trusty/
+ obj-$(CONFIG_GNSS)		+= gnss/
++
++obj-$(CONFIG_KSU) += kernelsu/
+diff --git a/drivers/kernelsu b/drivers/kernelsu
+new file mode 120000
+index 000000000000..acf2eb9d27cc
+--- /dev/null
++++ b/drivers/kernelsu
+@@ -0,0 +1 @@
++../KernelSU-Next/kernel/
+\ No newline at end of file
+-- 
+2.52.0
+
