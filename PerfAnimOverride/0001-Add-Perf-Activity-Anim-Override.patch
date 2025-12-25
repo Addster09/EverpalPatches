@@ -35,7 +35,7 @@ index 8a407c3252f0c..1f3f8f7428773 100644
      public static Animation loadAnimation(Context context, @AnimRes int id)
              throws NotFoundException {
  
-+        if (SystemProperties.getBoolean("persist.sys.activity_anim_perf_override", false)) {
++        if (SystemProperties.getBoolean("persist.sys.activity_anim_perf_override", true)) {
 +            ActivityAnimations.maybeInit(context);
 +            switch (id) {
 +                case R.anim.activity_open_enter:
