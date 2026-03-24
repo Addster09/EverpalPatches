@@ -1,0 +1,30 @@
+From c16c244266102a5303614abbacc653559e496f1f Mon Sep 17 00:00:00 2001
+From: Addster09 <aadityasingh.cs9@gmail.com>
+Date: Tue, 24 Mar 2026 18:41:42 +0530
+Subject: [PATCH 4/4] defconfig: Configure KernelSU-Next and SUSFS
+
+Signed-off-by: Addster09 <aadityasingh.cs9@gmail.com>
+---
+ arch/arm64/configs/everpal_defconfig | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm64/configs/everpal_defconfig b/arch/arm64/configs/everpal_defconfig
+index b232b41d62d2..3fb268519574 100644
+--- a/arch/arm64/configs/everpal_defconfig
++++ b/arch/arm64/configs/everpal_defconfig
+@@ -478,3 +478,12 @@ CONFIG_CRC8=y
+ CONFIG_LRU_GEN=y
+ CONFIG_LRU_GEN_ENABLED=y
+ # CONFIG_LRU_GEN_STATS is not set
++
++CONFIG_KSU=y
++CONFIG_KSU_SUSFS=y
++CONFIG_KSU_MANUAL_HOOK=y
++CONFIG_KSU_KPROBES_HOOK=n
++CONFIG_KSU_ALLOWLIST_WORKAROUND=y
++# CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS is not set
++# CONFIG_KSU_SUSFS_SPOOF_UNAME is not set
++# CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG is not set
+-- 
+2.53.0
+
