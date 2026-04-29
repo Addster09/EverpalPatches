@@ -1,0 +1,81 @@
+From d58fc504e2fe0d7e45e314e4410bded2bc0bd7ce Mon Sep 17 00:00:00 2001
+From: MerCuJerry <mercujerry@gmail.com>
+Date: Mon, 9 Mar 2026 10:22:18 +0800
+Subject: [PATCH] susfs_patch_taskmmu
+
+---
+ fs/proc/task_mmu.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index c4fe90e4f499..3d672bd22901 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -21,6 +21,9 @@
+ #include <linux/mm_inline.h>
+ #include <linux/sched/signal.h>
+ 
++#if defined(CONFIG_KSU_SUSFS_SUS_KSTAT) || defined(CONFIG_KSU_SUSFS_SUS_MAP)
++#include <linux/susfs_def.h>
++#endif
+ #include <asm/elf.h>
+ #include <asm/tlb.h>
+ #include <asm/tlbflush.h>
+@@ -879,6 +882,23 @@ static int show_smap(struct seq_file *m, void *v)
+ 		seq_print_vma_name(m, vma);
+ 		seq_putc(m, '\n');
+ 	}
++#ifdef CONFIG_KSU_SUSFS_SUS_MAP
++	if (vma->vm_file) {
++		struct inode *inode = file_inode(vma->vm_file);
++		if (inode->i_mapping &&
++			unlikely(test_bit(AS_FLAGS_SUS_MAP, &inode->i_mapping->flags) &&
++			susfs_is_current_proc_umounted_app()))
++		{
++			seq_printf(m,
++				"Size:           %8lu kB\n"
++				"KernelPageSize: %8lu kB\n"
++				"MMUPageSize:    %8lu kB\n",
++				(vma->vm_end - vma->vm_start) >> 10,
++				4, 4);
++			goto bypass_orig_flow;
++		}
++	}
++#endif
+ 
+ 	seq_printf(m,
+ 		   "Size:           %8lu kB\n"
+@@ -888,11 +908,30 @@ static int show_smap(struct seq_file *m, void *v)
+ 		   vma_kernel_pagesize(vma) >> 10,
+ 		   vma_mmu_pagesize(vma) >> 10);
+ 
++#ifdef CONFIG_KSU_SUSFS_SUS_MAP
++bypass_orig_flow:
++#endif
+ 	__show_smap(m, &mss);
+ 
++#ifdef CONFIG_KSU_SUSFS_SUS_MAP
++	if (vma->vm_file) {
++		struct inode *inode = file_inode(vma->vm_file);
++		if (inode->i_mapping &&
++			unlikely(test_bit(AS_FLAGS_SUS_MAP, &inode->i_mapping->flags) &&
++			susfs_is_current_proc_umounted_app()))
++		{
++			seq_puts(m, "VmFlags: mr mw me");
++			seq_putc(m, '\n');
++			goto bypass_orig_flow2;
++		}
++	}
++#endif
+ 	arch_show_smap(m, vma);
+ 	show_smap_vma_flags(m, vma);
+ 
++#ifdef CONFIG_KSU_SUSFS_SUS_MAP
++bypass_orig_flow2:
++#endif
+ 	m_cache_vma(m, vma);
+ 
+ 	return 0;
+-- 
+2.53.0
+

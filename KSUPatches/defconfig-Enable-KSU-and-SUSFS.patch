@@ -1,0 +1,32 @@
+From 7a71b360bd70d7f845619e22cc06ed4431eb5588 Mon Sep 17 00:00:00 2001
+From: Addster09 <aadityasingh.cs9@gmail.com>
+Date: Wed, 29 Apr 2026 13:55:45 +0530
+Subject: [PATCH] defconfig: Enable KSU and SUSFS
+
+Signed-off-by: Addster09 <aadityasingh.cs9@gmail.com>
+---
+ arch/arm64/configs/everpal_defconfig | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/arch/arm64/configs/everpal_defconfig b/arch/arm64/configs/everpal_defconfig
+index da90df658c32..367417eecf02 100644
+--- a/arch/arm64/configs/everpal_defconfig
++++ b/arch/arm64/configs/everpal_defconfig
+@@ -489,3 +489,15 @@ CONFIG_TCP_CONG_CUBIC=y
+ CONFIG_TCP_CONG_WESTWOOD=y
+ CONFIG_TCP_CONG_BBR=y
+ CONFIG_DEFAULT_BBR=y
++
++# KSU and SUSFS Config
++CONFIG_KSU=y
++CONFIG_KSU_SUSFS=y
++CONFIG_KSU_KPROBES_HOOK=n
++CONFIG_KSU_SUSFS_SUS_PATH=y
++CONFIG_KSU_SUSFS_SUS_MOUNT=y
++CONFIG_KSU_SUSFS_SUS_KSTAT=y
++CONFIG_KSU_SUSFS_SPOOF_UNAME=y
++CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y
++CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y
+-- 
+2.54.0
+
